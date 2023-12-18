@@ -1,0 +1,18 @@
+{
+	"project": {
+		"name": "Far Side",
+		"slot": 1,
+		"description": "bootious maximuss",
+		"platform": "V5",
+		"creationDate": "Fri, 15 Sep 2023 01:59:25 GMT",
+		"language": "cpp",
+		"sdkVersion": "V5_20220726_10_00_00",
+		"cpp": {
+			"includePath": []
+		}
+	},
+	"extension": {
+		"version": "0.5.0",
+		"json": 1
+	}
+}
