@@ -9,30 +9,30 @@ using code = vision::code;
 brain  Brain;
 
 controller master = controller(primary);
-inertial imu = inertial(PORT4);
+inertial imu = inertial(PORT19);
 
 //sensors
-digital_in limit_switch = digital_in(Brain.ThreeWirePort.A);
+digital_in limit_switch = digital_in(Brain.ThreeWirePort.D);
 
 //drivetrain
-motor LeftFront = motor(PORT9, ratio6_1, true);
-motor LeftMiddle = motor(PORT7, ratio6_1, true);
-motor LeftBack = motor(PORT6, ratio6_1, true);
+motor LeftFront = motor(PORT20, ratio6_1, true);
+motor LeftMiddle = motor(PORT17, ratio6_1, true); 
+motor LeftBack = motor(PORT10, ratio6_1, true);
     
-motor RightFront = motor(PORT1, ratio6_1, false);
-motor RightMiddle = motor(PORT3, ratio6_1, false);
-motor RightBack = motor(PORT2, ratio6_1, false);
+motor RightFront = motor(PORT13, ratio6_1, false);
+motor RightMiddle = motor(PORT14, ratio6_1, false); 
+motor RightBack = motor(PORT1, ratio6_1, false);
 
 motor_group RightDrive = motor_group(RightFront, RightMiddle, RightBack);
 motor_group LeftDrive = motor_group(LeftFront, LeftMiddle, LeftBack);
 
 //other motors
-motor cata = motor(PORT5, ratio36_1);
-motor intake = motor(PORT20, ratio18_1);
-motor lift = motor(PORT10, ratio18_1);
+motor slapper = motor(PORT11, ratio36_1);
+motor intake = motor(PORT9, ratio6_1);
 
 //pneumatics
-digital_out wings = digital_out(Brain.ThreeWirePort.D);
+digital_out wingsLeft = digital_out(Brain.ThreeWirePort.G);
+digital_out wingsRight = digital_out(Brain.ThreeWirePort.H);
 
 
 // VEXcode device constructors

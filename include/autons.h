@@ -15,10 +15,16 @@ void odom_test();
 void tank_odom_test();
 void holonomic_odom_test();
 
-// our autons
+// Our autons
 void test_functions();
 void far_side();
-void close_side();
 
-// skills auto
-void prog_skills();
+// void close_side();
+// void close_side2();
+
+// Skills 
+void programming_skills();
+
+// void prog_skills();
+// void prog_skills2();
+// void prog_skills3();

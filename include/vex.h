@@ -24,10 +24,8 @@
 #include "JAR-Template/PID.h"
 #include "autons.h"
 #include "subsystems/intake.h"
-#include "subsystems/catapult.h"
-#include "subsystems/lift.h"
+#include "subsystems/slapper.h"
 #include "subsystems/pneumatics.h"
-#include "subsystems/gui.h"
 
 #define waitUntil(condition)                                                   \
   do {                                                                         \

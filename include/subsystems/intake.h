@@ -5,4 +5,4 @@ void spinIntake(int direction);
 void stopIntake();
 
 //opcontrol functions
-void intakeControl();
+void intakeTask();

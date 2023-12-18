@@ -3,27 +3,34 @@
 //auton functions
 void deployWings(int state) {
     if (state == 0) {
-        wings.set(false);
+        wingsLeft.set(false);
+        wingsRight.set(false);
     }
     else if (state = 1) {
-        wings.set(true);
+        wingsLeft.set(true);
+        wingsRight.set(true);
     }
 }
 
 //opcontrol functions
 bool wingsExtended = false;
 
-void wingsControl() {
-    if (master.ButtonA.pressing()) {
-        if (wingsExtended) {
-            wings.set(false);
-            wait(250, msec);
-            wingsExtended = false;
+void wingsTask() {
+    while (true) {
+        if (master.ButtonL2.pressing()) {
+            if (wingsExtended) {
+                wingsLeft.set(false);
+                wingsRight.set(false);
+                wait(200, msec);
+                wingsExtended = false;
+            }
+            else {
+                wingsLeft.set(true);
+                wingsRight.set(true);
+                wait(200, msec);
+                wingsExtended = true;
+            }
         }
-        else {
-            wings.set(true);
-            wait(250, msec);
-            wingsExtended = true;
-        }
+        wait(20, msec);
     }
 }

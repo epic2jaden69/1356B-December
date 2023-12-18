@@ -38,7 +38,7 @@ LeftDrive, //changed 9/14
 RightDrive, //changed 9/14
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT4,
+PORT19,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
 3.25,
@@ -80,7 +80,7 @@ PORT3,     -PORT4,
 //Input Forward Tracker center distance (a positive distance corresponds to a tracker on the right side of the robot, negative is left.)
 //For a zero tracker tank drive with odom, put the positive distance from the center of the robot to the right side of the drive.
 //This distance is in inches:
-6.75,
+-2,
 
 //Input the Sideways Tracker Port, following the same steps as the Forward Tracker Port:
 1,
@@ -101,29 +101,40 @@ void pre_auton(void) {
   vexcodeInit();
   default_constants();
 
-  wings.set(false);
+  wingsLeft.set(false);
+  wingsRight.set(false);
 
-  lift.setStopping(hold);
-  lift.setVelocity(80, pct);
-  lift.setPosition(0, degrees);
+  intake.setMaxTorque(100, percent);
+  intake.setStopping(brake);
 
-  while(auto_started == false){            //Changing the names below will only change their names on the
-    Brain.Screen.clearScreen();            //brain screen for auton selection.
+  slapper.setStopping(hold);
+
+  while(auto_started == false){            
+    Brain.Screen.setFillColor(green);
+    Brain.Screen.setPenColor(black);
+    Brain.Screen.drawRectangle(0, 0, 479, 239);
+    
     switch(current_auton_selection){       //Tap the brain screen to cycle through autons.
       case 0:
-        Brain.Screen.printAt(50, 50, "Far side");
+        Brain.Screen.printAt(50, 50, "Programming skills");
         break;
       case 1:
-        Brain.Screen.printAt(50, 50, "Close side");
+        Brain.Screen.printAt(50, 50, "Far Side");
         break;
       case 2:
-        Brain.Screen.printAt(50, 50, "Programming skills");
+        Brain.Screen.printAt(50, 50, "Close Side");
+        break;
+      case 3:
+        Brain.Screen.printAt(50, 50, "Elims Close Side");
+        break;
+      case 4:
+        Brain.Screen.printAt(50, 50, "Do nothing");
         break;
     }
     if(Brain.Screen.pressing()){
       while(Brain.Screen.pressing()) {}
       current_auton_selection ++;
-    } else if (current_auton_selection == 4){
+    } else if (current_auton_selection == 5){
       current_auton_selection = 0;
     }
     task::sleep(10);
@@ -132,17 +143,21 @@ void pre_auton(void) {
 
 void autonomous(void) {
   auto_started = true;
+  current_auton_selection = 1;
   switch(current_auton_selection){  
     case 0:   //This is the default auton, if you don't select from the brain.
-      prog_skills();
+      programming_skills();
       break;     
     case 1:
       far_side();
-      break;   
+      break; 
     case 2:         
-      close_side();
+      test_functions();
+      break;  
+    case 3:         
+      test_functions();
       break;
-    case 3: 
+    case 4: 
       int fart = 0;
       break;
  }
@@ -159,9 +174,18 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 
 void usercontrol(void) {
+  auto_started = true;
+  
   chassis.reset_drive_sensors();
 
-  thread myThread = thread(controllerGUI);
+  thread intakeThread = thread(intakeTask); 
+  thread slapperThread = thread(slapperTask); 
+  thread wingsThread = thread(wingsTask); 
+ 
+  Brain.Screen.setFillColor(green);
+  Brain.Screen.setPenColor(black);
+  Brain.Screen.drawRectangle(0, 0, 479, 239);
+  Brain.Screen.printAt(50, 50, "B*tch");
 
   // User control code here, inside the loop
   while (1) {
@@ -170,11 +194,6 @@ void usercontrol(void) {
     // values based on feedback from the joysticks.
 
     chassis.arcadeDrive();
-
-    intakeControl();
-    cataControl();
-    liftControl();
-    wingsControl();
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.

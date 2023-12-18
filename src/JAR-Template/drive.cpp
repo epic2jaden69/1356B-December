@@ -400,16 +400,21 @@ void Drive::joy_thresh_opcontrol(double l_stick, double r_stick) {
   double active_brake_kp = .1;
   // Threshold if joysticks don't come back to perfect 0
   if (abs(l_stick) > JOYSTICK_THRESHOLD || abs(r_stick) > JOYSTICK_THRESHOLD) {
-    LeftDrive.spin(fwd, l_stick*.12, volt);
-    RightDrive.spin(fwd, r_stick*.12, volt);
+    LeftDrive.spin(fwd, l_stick*.127, volt);
+    RightDrive.spin(fwd, r_stick*.127, volt);
     if (active_brake_kp != 0) {
       reset_drive_sensors();
     }
   }
   // When joys are released, run active brake (P) on drive
   else {
+    // Active Break:
     LeftDrive.spin(fwd, (0 - LeftDrive.position(degrees)) * active_brake_kp*.12, volt);
     RightDrive.spin(fwd, (0 - RightDrive.position(degrees)) * active_brake_kp*.12, volt);
+
+    // Coast:
+    // LeftDrive.stop();
+    // RightDrive.stop();
   }
 }
 //usercontrol task

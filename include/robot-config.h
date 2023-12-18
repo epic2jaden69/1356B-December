@@ -14,7 +14,7 @@ extern digital_in limit_switch;
 extern motor LeftFront;
 extern motor LeftMiddle;
 extern motor LeftBack;
-    
+     
 extern motor RightFront;
 extern motor RightMiddle;
 extern motor RightBack;
@@ -23,12 +23,12 @@ extern motor_group RightDrive;
 extern motor_group LeftDrive;
 
 //other motors
-extern motor cata;
+extern motor slapper;
 extern motor intake;
-extern motor lift;
 
 //pneumatics
-extern digital_out wings;
+extern digital_out wingsLeft;
+extern digital_out wingsRight;
 
 // VEXcode devices
 

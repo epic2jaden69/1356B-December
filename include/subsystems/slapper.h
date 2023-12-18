@@ -1,8 +1,7 @@
 #include "vex.h"
 
 //auton functions
-void spinCata();
-void stopCata();
+void spinSlapper();
 
 //opcontrol functions
-void cataControl();
+void slapperTask();

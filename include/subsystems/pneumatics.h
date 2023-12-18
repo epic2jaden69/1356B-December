@@ -4,5 +4,5 @@
 void deployWings(int state);
 
 //opcontrol functions
-void wingsControl();
+void wingsTask();
 
